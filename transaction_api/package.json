@@ -1,0 +1,19 @@
+{
+  "name": "transaction-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Dented Code",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0",
+    "nodemon": "^3.1.4"
+  }
+}
