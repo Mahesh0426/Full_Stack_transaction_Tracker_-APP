@@ -7,24 +7,24 @@ import { useEffect } from "react";
 import { getTransactionsAction } from "../redux/transaction/transactionActions";
 
 const TransactionPage = () => {
-  const { user } = useSelector(state => state.user)
+  const { user } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTransactionsAction(user._id))
-  }, [dispatch, user._id])
-  
-  return ( 
+    dispatch(getTransactionsAction(user._id));
+  }, [dispatch, user._id]);
+
+  return (
     <Container>
-      <TopNavbar userName={user.name}/>
+      <TopNavbar userName={user.name} />
 
       {/* Transaction Form */}
-        <TransactionForm userId={user._id} />
+      <TransactionForm userId={user._id} />
       {/* Transaction Table */}
       <TransactionTable />
     </Container>
-   );
-}
- 
+  );
+};
+
 export default TransactionPage;

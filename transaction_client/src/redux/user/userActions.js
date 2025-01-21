@@ -20,6 +20,7 @@ export const loginUserAction = (userObject) => async (dispatch) => {
     }
     dispatch(setIsAuthenticated(true));
     dispatch(setUser(result.data));
+
     toast.success(result.message);
   } catch (err) {
     console.log(err);

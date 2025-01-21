@@ -1,25 +1,27 @@
-import axios from "axios"
+import axios from "axios";
 
 // Server URL
-const API_BASE_URL = "http://localhost:8000"
-const userEndpoint = "/api/user"
+const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const userEndpoint = "/api/user";
 
-const API_URL = API_BASE_URL + userEndpoint
+const API_URL = API_BASE_URL + userEndpoint;
 
 // Signup | User Registration | Create | POST
 export const createUser = (userObj) => {
-  const response = axios.post(`${API_URL}/signup`, userObj)
-                    .then(res => res.data)
-                    .catch(error => console.log(error))
+  const response = axios
+    .post(`${API_URL}/signup`, userObj)
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 
-  return response
-}
+  return response;
+};
 
 // Login | Post
 export const loginUser = (userObj) => {
-  const response = axios.post(`${API_URL}/login`, userObj)
-                    .then(res => res.data)
-                    .catch(error => console.log(error))
+  const response = axios
+    .post(`${API_URL}/login`, userObj)
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 
-  return response
-}
+  return response;
+};

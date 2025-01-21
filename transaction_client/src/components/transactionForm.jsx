@@ -3,6 +3,7 @@ import { Button, Card, Col, Form, Row, Container } from "react-bootstrap";
 import CustomInput from "./customInput";
 import { useDispatch } from "react-redux";
 import { createTransactionAction } from "../redux/transaction/transactionActions";
+import { toast } from "react-toastify";
 
 const initialFormData = {
   title: "",
@@ -23,6 +24,12 @@ const TransactionForm = ({ userId }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    // Validate that all required fields are filled
+    if (!title || !type || !date || !amount) {
+      toast("Please fill in all fields before submitting.");
+      return;
+    }
     dispatch(createTransactionAction(formData));
     setFormData({ ...initialFormData, userId });
   };
@@ -69,7 +76,7 @@ const TransactionForm = ({ userId }) => {
                   inputAttributes={{
                     type: "date",
                     name: "date",
-                    value: date,
+                    value: date || "",
                     required: true,
                   }}
                 />
