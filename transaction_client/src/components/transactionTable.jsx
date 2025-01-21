@@ -17,79 +17,64 @@ const TransactionTable = () => {
 
   const totalBalance = incomeAmount - expenseAmount;
 
-  // Logic to implement selction of transactions which we want to delete
   const [selectedTransactionIds, setSelectedTransactionIds] = useState([]);
 
   const toggleId = (transactionId) => {
-    // check if the id is already in teh selected array
-    // if(selectedTransactionIds.includes(transactionId)){
-    //   const updatedIs = selectedTransactionIds.filter(id => id != transactionId)
-    //   setSelectedTransactionIds(updatedIs)
-    //   return
-    // }
-
-    // setSelectedTransactionIds([...selectedTransactionIds, transactionId])
-
     setSelectedTransactionIds((prevState) => {
-      // check if the id is already in teh selected array
       if (prevState.includes(transactionId)) {
-        const updatedIs = prevState.filter((id) => id != transactionId);
-        return updatedIs;
+        return prevState.filter((id) => id !== transactionId);
       } else {
         return [...prevState, transactionId];
       }
     });
   };
-  // dispatch
+
   const dispatch = useDispatch();
 
-  // handle to delete selected transaction
   const handleOnDeleteSelected = () => {
-    // call action to delete
     dispatch(deleteSelectedTransactionAction(selectedTransactionIds, user._id));
     setSelectedTransactionIds([]);
   };
 
   const allTransactionIds = transactions.map((transaction) => transaction._id);
 
-  // handle to delete all transaction
   const handleOnDeleteAll = () => {
     dispatch(deleteSelectedTransactionAction(allTransactionIds, user._id));
   };
 
   return (
-    <Table striped bordered hover className="text-center">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Title</th>
-          <th>Type</th>
-          <th>Amount</th>
-          <th>
-            <ButtonGroup size="sm">
-              <Button
-                variant="outline-danger"
-                onClick={() => handleOnDeleteAll()}
-                disabled={!allTransactionIds?.length}
-              >
-                Delete All
-              </Button>
-              <Button
-                variant="outline-warning"
-                onClick={() => handleOnDeleteSelected()}
-                disabled={!selectedTransactionIds.length}
-              >
-                Delete Selected
-              </Button>
-            </ButtonGroup>
-          </th>
-        </tr>
-      </thead>
+    <div className="table-responsive">
+      <Table striped bordered hover className="text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>
+              <ButtonGroup size="sm">
+                <Button
+                  variant="outline-danger"
+                  onClick={handleOnDeleteAll}
+                  disabled={!allTransactionIds?.length}
+                >
+                  Delete All
+                </Button>
+                <Button
+                  variant="outline-warning"
+                  onClick={handleOnDeleteSelected}
+                  disabled={!selectedTransactionIds.length}
+                >
+                  Delete Selected
+                </Button>
+              </ButtonGroup>
+            </th>
+          </tr>
+        </thead>
 
-      <tbody>
-        {transactions.map((transaction, index) => {
-          return (
+        <tbody>
+          {transactions.map((transaction, index) => (
             <tr key={transaction._id}>
               <td>{index + 1}</td>
               <td>{new Date(transaction.date).toLocaleDateString()}</td>
@@ -112,24 +97,26 @@ const TransactionTable = () => {
                 </Form>
               </td>
             </tr>
-          );
-        })}
+          ))}
 
-        <tr>
-          <td colSpan={5} className="text-end mr-4">
-            <strong>
-              Total balance:
-              {totalBalance < 0 ? (
-                <span className="text-danger">-${totalBalance * -1}</span>
-              ) : (
-                <span className="text-success">${totalBalance}</span>
-              )}
-            </strong>
-          </td>
-          <td></td>
-        </tr>
-      </tbody>
-    </Table>
+          <tr>
+            <td colSpan={5} className="text-end mr-4">
+              <strong>
+                Total balance:{" "}
+                {totalBalance < 0 ? (
+                  <span className="text-danger">
+                    -${Math.abs(totalBalance)}
+                  </span>
+                ) : (
+                  <span className="text-success">${totalBalance}</span>
+                )}
+              </strong>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 };
 
