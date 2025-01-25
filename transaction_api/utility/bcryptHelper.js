@@ -1,13 +1,13 @@
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 
-const SALT  =15
+const SALT = 8;
 
 export const hashPassword = (plainPassword) => {
-  const hashPassword = bcrypt.hashSync(plainPassword, SALT)
+  const hashPassword = bcrypt.hashSync(plainPassword, SALT);
 
-  return hashPassword
-}
+  return hashPassword;
+};
 
 export const comparePassword = (plainPassword, hashPassword) => {
-  return bcrypt.compareSync(plainPassword, hashPassword)
-}
+  return bcrypt.compareSync(plainPassword, hashPassword);
+};
